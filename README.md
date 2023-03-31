@@ -12,7 +12,7 @@ Also includes realtime graphs.
 
 ## How to Run
 
-- already compiled exe in dist
+- already compiled exe in dist (py installer used)
 - running ekg_n_emg_gui.py 
 - running ekg_n_emg_be for only be
 
@@ -20,7 +20,7 @@ Also includes realtime graphs.
 
 - run script
 - select mode
-- select serial coms
+- select serial coms ( use this if you cant figure them out: python -m serial.tools.list_ports)
 - set params confirms aformentioned settings
 - start starts arduino and communication also starts up rt graphs
 - start and end recording selfexplanatory
