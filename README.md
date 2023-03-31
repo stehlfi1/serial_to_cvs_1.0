@@ -1,3 +1,40 @@
 # serial_to_cvs_1.0
 
-TO DO: this
+This is simple script to get ekg and emg data from arduino to csv.
+Also includes realtime graphs.
+
+## Inside this repo
+
+- EKG and EMG arduino files.
+- standalone backend script without graphs
+- simple gui seving as main for now
+- already compiled into working exe, can be found in dist
+
+## How to Run
+
+- already compiled exe in dist
+- running ekg_n_emg_gui.py 
+- running ekg_n_emg_be for only be
+
+## How to use
+
+- run script
+- select mode
+- select serial coms
+- set params confirms aformentioned settings
+- start starts arduino and communication also starts up rt graphs
+- start and end recording selfexplanatory
+- exit selfexplanatory
+
+## Notes
+
+Earlier version had cpu heavy plotting, for now still in BE. Current version less heavy, 20fps, however quite ugly.
+
+## TO DO
+- improve this read me
+- polish code
+- bug testing
+
+
+
+
