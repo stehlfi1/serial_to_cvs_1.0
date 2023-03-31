@@ -2,7 +2,7 @@
 -----------------------------------------------------------------------------------------
 Made by Filip Stehlik
 -backend
-
+lol
 PROTO DOCUMENTATION 
 Simple script,
 after handshake, one way arduino communication, pulling data from arduino
