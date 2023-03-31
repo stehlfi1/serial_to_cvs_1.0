@@ -3,7 +3,7 @@
 Made by Filip Stehlik
 -backend
 
-PROTO DOCUMENTATION
+PROTO DOCUMENTATION 
 Simple script,
 after handshake, one way arduino communication, pulling data from arduino
 code is pretty shit, i know
