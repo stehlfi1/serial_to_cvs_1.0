@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "EKG",
+			"path": "../EKG"
+		},
+		{
+			"name": "Ekg Speed Test",
+			"path": "../../../../Documents/PlatformIO/Projects/Ekg Speed Test"
+		},
+		{
+			"name": "EMG",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
