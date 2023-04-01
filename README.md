@@ -11,7 +11,7 @@ Also includes realtime graphs.
 - already compiled into working exe, can be found in dist
 
 ## How to Run
-
+- clone/download repo
 - already compiled exe in dist (py installer used)
 - running ekg_n_emg_gui.py 
 - running ekg_n_emg_be for only be
