@@ -13,8 +13,8 @@ Also includes realtime graphs.
 ## How to Run
 - clone/download repo
 - already compiled exe in dist (py installer used)
-- running ekg_n_emg_gui.py 
-- running ekg_n_emg_be for only be
+- running ekg_n_emg_gui.py (need to have python and install few libs)
+- running ekg_n_emg_be for only be (need to have python and install few libs)
 
 ## How to use
 
