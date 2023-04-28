@@ -2,9 +2,11 @@
 -----------------------------------------------------------------------------------------
 Made by Filip Stehlik
 Frontend
-lol
+lol 
 To do:
 Make the fronend prettier
+-color buttons
+-layout
 -----------------------------------------------------------------------------------------
 """
 
@@ -20,7 +22,7 @@ class GUI:
 
     def __init__(self, root):
         self.root = root
-        self.root.geometry("1000x800")
+        self.root.geometry("1300x800")
         self.root.title("EKG and EMG to CSV")
         self.create_widgets()
         
@@ -50,30 +52,32 @@ class GUI:
         self.entry4.insert(0, "10000")
 
         # Add the labels and text input fields to the window
-        self.label1.pack(padx=60, anchor="w")
-        self.entry1.pack(padx=60, anchor="w")
-        self.label5.pack(padx=60, anchor="w",side=tk.RIGHT)
-        self.label2.pack(padx=60, anchor="w")
-        self.entry2.pack(padx=60, anchor="w")
-        self.label3.pack(padx=60, anchor="w")
-        self.entry3.pack(padx=60, anchor="w")
+        self.label1.pack(padx=0, anchor="s",side="left", pady=10)
+        self.entry1.pack(padx=10, anchor="s",side="left", pady=10)
+        
+        self.label2.pack(padx=0, anchor="s",side="left", pady=10)
+        self.entry2.pack(padx=10, anchor="s",side="left", pady=10)
+        
+        self.label3.pack(padx=0, anchor="s",side="left", pady=10)
+        self.entry3.pack(padx=10, anchor="s",side="left", pady=10)
 
         # Create a label to output the values
-        self.output_label.pack(padx=60, anchor="w")
+        #self.output_label.pack(padx=10, anchor="w")
 
         # Create the buttons
-        self.set_params_button = tk.Button(self.root, text="Set Params", command=self.set_params)
-        self.confirm_button = tk.Button(self.root, text="Startup", command=self.button_click)
-        self.start_button = tk.Button(self.root, text="RecordStart", command=self.startrecording)
-        self.exit_button = tk.Button(self.root, text="EXIT", command=self.exitprogram)
-        self.end_button = tk.Button(self.root, text="RecordStop", command=self.endrecording)
+        self.set_params_button = tk.Button(self.root, text="Set Params", command=self.set_params, activebackground='#00ff00')
+        self.confirm_button = tk.Button(self.root, text="Startup", command=self.button_click, activebackground='#0000ff')
+        self.start_button = tk.Button(self.root, text="RecordStart", command=self.startrecording, activebackground='#00ff00')
+        self.exit_button = tk.Button(self.root, text="EXIT", command=self.exitprogram, activebackground='#ff0000')
+        self.end_button = tk.Button(self.root, text="RecordStop", command=self.endrecording, activebackground='#ff0000')
 
         # Add the buttons to the window
-        self.set_params_button.pack(side="left")
-        self.confirm_button.pack(side="left")
-        self.start_button.pack(side="left")
-        self.end_button.pack(side="left")
-        self.exit_button.pack(side="left")
+        self.set_params_button.pack(side="left",padx=5, pady=10)
+        self.confirm_button.pack(side="left",padx=5, pady=10)
+        self.start_button.pack(side="left",padx=5, pady=10)
+        self.end_button.pack(side="left",padx=5, pady=10)
+        self.exit_button.pack(side="left",padx=5, pady=10)
+        self.label5.pack(padx=20, anchor="w",side=tk.RIGHT, pady=10)
 
     def set_params(self):
         # Function to set the parameters
@@ -144,5 +148,5 @@ ydata2.fill(np.nan)
 line1, = ax1.plot([], [], color="red", lw=2)
 line2, = ax2.plot([], [], color="blue", lw=2)
 
-ani = animation.FuncAnimation(plt.gcf(), animate, fargs=(data,),init_func=init ,interval=50, blit=True)
+ani = animation.FuncAnimation(plt.gcf(), animate, fargs=(data,),init_func=init ,interval=5, blit=True)
 root.mainloop()
