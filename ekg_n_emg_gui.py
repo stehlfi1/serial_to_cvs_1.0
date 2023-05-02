@@ -1,12 +1,12 @@
 """
 -----------------------------------------------------------------------------------------
 Made by Filip Stehlik
-Frontend
-lol 
+UI and animation
 To do:
 Make the fronend prettier
--color buttons
--layout
+-color buttons -done
+-layout -done
+-further improve -someday mby
 -----------------------------------------------------------------------------------------
 """
 
@@ -148,5 +148,5 @@ ydata2.fill(np.nan)
 line1, = ax1.plot([], [], color="red", lw=2)
 line2, = ax2.plot([], [], color="blue", lw=2)
 
-ani = animation.FuncAnimation(plt.gcf(), animate, fargs=(data,),init_func=init ,interval=5, blit=True)
+ani = animation.FuncAnimation(plt.gcf(), animate, fargs=(data,),init_func=init ,interval=10, blit=True)
 root.mainloop()

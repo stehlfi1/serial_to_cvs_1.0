@@ -1,8 +1,8 @@
 """
 -----------------------------------------------------------------------------------------
 Made by Filip Stehlik
--backend
-lol
+Backend
+
 PROTO DOCUMENTATION 
 Simple script,
 after handshake, one way arduino communication, pulling data from arduino
@@ -14,16 +14,8 @@ NOTES:
     Period choice after handshake, move loopstartflag after setting it - Ready to implement
 
 TO DO:
-Try to optimize the animation. DONE
+Try to optimize the animation. -
 rewrite ongoing to event
-
-Bug testing
-Clean up code
-
-Space for thoughts:
-FIX garbage data bug
-SOLVED-need to optimize (serial buff overflow)
-SOLVED BY OPTIMAZING PLOTTING
 
 -----------------------------------------------------------------------------------------
 """
@@ -100,12 +92,12 @@ def serial_read(serialname, data, threadnumber):
             print(serialname, "Data Parse Error:", e)
             print("Data in question:", serdata)
             continue
-        """
+        
         i += 1
         if i%100 == 0:
             print(serialname,": ", ser1.inWaiting())
             pass
-        """
+        
         if threadnumber == 0:   
             data.graphvar1 = response1
             data.arr1.append([arduinoMillies, response1]) if data.recording else None
@@ -236,7 +228,7 @@ def confirm(data):
     if data.mode == 2:
         t2.start()
         t2.join()
-        controlprint(arr2, len(arr2))
+        #controlprint(arr2, len(arr2))
         csvwriter(2, data)
         
     if data.mode == 3:
