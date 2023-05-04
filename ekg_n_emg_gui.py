@@ -40,20 +40,37 @@ class GUI:
         self.label3 = tk.Label(self.root, text="EMG PORT:")
         self.label5 = tk.Label(self.root, text="For more info, checkout ReadMe")
         self.output_label = tk.Label(self.root, text="Waiting for Params")
+        
+        # Dropdown menu options
+        self.options = [
+            "EKG ",
+            "EMG",
+            "Both"
+        ]
+        
+        # datatype of menu text
+        self.clicked = tk.StringVar()
+        
+        # initial menu text
+        
+        
+        # Create Dropdown menu
+        self.drop = tk.OptionMenu(self.root , self.clicked , *self.options )
+        self.drop.pack()
 
         # Create the text input fields
-        self.entry1 = tk.Entry(self.root)
+        #self.entry1 = tk.Entry(self.root)
         self.entry2 = tk.Entry(self.root)
         self.entry3 = tk.Entry(self.root)
         self.entry4 = tk.Entry(self.root)
-        self.entry1.insert(0, "1")
+        self.clicked.set( "EKG " )
         self.entry2.insert(0, "COM4")
         self.entry3.insert(0, "COM5")
         self.entry4.insert(0, "10000")
 
         # Add the labels and text input fields to the window
-        self.label1.pack(padx=0, anchor="s",side="left", pady=10)
-        self.entry1.pack(padx=10, anchor="s",side="left", pady=10)
+        #self.label1.pack(padx=0, anchor="s",side="left", pady=10)
+        self.drop.pack(padx=10, anchor="s",side="left", pady=10)
         
         self.label2.pack(padx=0, anchor="s",side="left", pady=10)
         self.entry2.pack(padx=10, anchor="s",side="left", pady=10)
@@ -82,7 +99,7 @@ class GUI:
     def set_params(self):
         # Function to set the parameters
         # Get the values of the four text input fields
-        text1 = self.entry1.get()
+        text1 = 1 if (self.clicked.get() == "EKG ") else (2 if (self.clicked.get() == "EMG") else (3)) # deciding mode w ternary op
         text2 = self.entry2.get()
         text3 = self.entry3.get()
         text4 = self.entry4.get()
