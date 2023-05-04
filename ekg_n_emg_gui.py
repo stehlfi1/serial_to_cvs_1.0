@@ -147,7 +147,7 @@ if __name__ == '__main__':
     ax1.set_xlim([0,5])
     ax2.set_xlim([0,5])
 
-    xdata = np.linspace(0, 5, 100)
+    xdata = np.linspace(0, 5, 450)
     ydata1 = np.empty(len(xdata))
     ydata1.fill(np.nan)
     ydata2 = np.empty(len(xdata))
@@ -155,5 +155,5 @@ if __name__ == '__main__':
     line1, = ax1.plot([], [], color="red", lw=2)
     line2, = ax2.plot([], [], color="blue", lw=2)
 
-    ani = animation.FuncAnimation(plt.gcf(), animate, fargs=(data, graphvar1, graphvar2),init_func=init ,interval=2, blit=True)
+    ani = animation.FuncAnimation(plt.gcf(), animate, fargs=(data, graphvar1, graphvar2),init_func=init ,interval=1, blit=True)
     root.mainloop()

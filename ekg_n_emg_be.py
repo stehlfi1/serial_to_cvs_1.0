@@ -22,6 +22,7 @@ rewrite ongoing to event
 import serial
 import threading
 from multiprocessing import Process, Value
+import multiprocessing
 import time
 import os
 from sys import exit
@@ -95,7 +96,7 @@ def serial_read(serialname, data, threadnumber, graphvar1, graphvar2):
             continue
         
         i += 1
-        if i%100 == 0:
+        if i%1000 == 0:
             print(serialname,": ", ser1.inWaiting())
             pass
         
@@ -178,8 +179,10 @@ def exitprogram(data):
     if(data.ongoing1):
         data.ongoing1 = False
         time.sleep(2)
-    if p.is_alive():
-        p.join
+    # get all active child processes
+    active = multiprocessing.active_children()
+    for child in active:
+        child.terminate()
     exit()
     print("exiting the program")
 
