@@ -17,6 +17,7 @@ import matplotlib.animation as animation
 import ekg_n_emg_be as be
 import numpy as np
 import random #tobe deleted
+from multiprocessing import Process, Value
 
 class GUI:
 
@@ -96,7 +97,8 @@ class GUI:
         print("parametres set")
     def button_click(self):
         # Function to set the parameters
-        be.button_click(data)
+        global graphvar1, graphvar2
+        be.button_click(data, graphvar1, graphvar2)
     def startrecording(self):
         # Function to set the parameters
         be.startrecording(data)
@@ -112,15 +114,17 @@ def init():
     line1.set_data([], [])
     line2.set_data([], [])
     return line1, line2 ,
-def animate(frame, data): 
-    y1 = int(data.graphvar1)
-    y2 = int(data.graphvar2)
+
+def animate(frame, data, graphvar1, graphvar2): 
+    y1 = int(graphvar1.value)
+    y2 = int(graphvar2.value)
     ydata1[frame % len(ydata1)] = y1
     ydata2[frame % len(ydata2)] = y2
     line1.set_data([xdata], [ydata1])
     line2.set_data([xdata], [ydata2])
     ax1.autoscale_view(True,True,True)
     ax2.autoscale_view(True,True,True)
+    
     # Check if the animation has run its course
     if (frame % len(xdata)) == len(xdata) - 1:
         # Reset ydata arrays to clear the lines on the plot
@@ -129,24 +133,27 @@ def animate(frame, data):
     return line1, line2 ,
 
 #main
-root = tk.Tk()
-data = be.SharedState()
-GUI(root)
-# Create the subplots
-ax1, ax2 = plt.gcf().subplots(1, 2)
+if __name__ == '__main__':
+    root = tk.Tk()
+    data = be.SharedState()
+    graphvar1 = Value('i', 0)
+    graphvar2 = Value('i', 0)
+    GUI(root)
+    # Create the subplots
+    ax1, ax2 = plt.gcf().subplots(1, 2)
 
-ax1.set_ylim([-50, 1000])
-ax2.set_ylim([-50, 1000])
-ax1.set_xlim([0,5])
-ax2.set_xlim([0,5])
+    ax1.set_ylim([-50, 1000])
+    ax2.set_ylim([-50, 1000])
+    ax1.set_xlim([0,5])
+    ax2.set_xlim([0,5])
 
-xdata = np.linspace(0, 5, 200)
-ydata1 = np.empty(len(xdata))
-ydata1.fill(np.nan)
-ydata2 = np.empty(len(xdata))
-ydata2.fill(np.nan)
-line1, = ax1.plot([], [], color="red", lw=2)
-line2, = ax2.plot([], [], color="blue", lw=2)
+    xdata = np.linspace(0, 5, 100)
+    ydata1 = np.empty(len(xdata))
+    ydata1.fill(np.nan)
+    ydata2 = np.empty(len(xdata))
+    ydata2.fill(np.nan)
+    line1, = ax1.plot([], [], color="red", lw=2)
+    line2, = ax2.plot([], [], color="blue", lw=2)
 
-ani = animation.FuncAnimation(plt.gcf(), animate, fargs=(data,),init_func=init ,interval=10, blit=True)
-root.mainloop()
+    ani = animation.FuncAnimation(plt.gcf(), animate, fargs=(data, graphvar1, graphvar2),init_func=init ,interval=2, blit=True)
+    root.mainloop()

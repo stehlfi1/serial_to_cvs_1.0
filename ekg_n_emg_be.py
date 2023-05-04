@@ -21,6 +21,7 @@ rewrite ongoing to event
 """
 import serial
 import threading
+from multiprocessing import Process, Value
 import time
 import os
 from sys import exit
@@ -38,8 +39,8 @@ class SharedState:
     def __init__(self):
         self.arr1 = []
         self.arr2 = []
-        self.graphvar1 = 0
-        self.graphvar2 = 0
+        #self.graphvar1 = Value(0)
+        #self.graphvar2 = Value(0)
         self.ongoing1 = False
         self.recording = False
         self.baud = 500000
@@ -62,7 +63,7 @@ class SharedState:
         self.plotreqmes = (b'3\x0A')
 
 #arduino thread--------------------------------------------------------------------------
-def serial_read(serialname, data, threadnumber):
+def serial_read(serialname, data, threadnumber, graphvar1, graphvar2):
     data.ongoing1 = True
     ser1 = serial.Serial(serialname, data.baud, timeout = 5, bytesize=8, parity='N', stopbits=1)
     time.sleep(4)
@@ -99,10 +100,10 @@ def serial_read(serialname, data, threadnumber):
             pass
         
         if threadnumber == 0:   
-            data.graphvar1 = response1
+            graphvar1.value = int(response1)
             data.arr1.append([arduinoMillies, response1]) if data.recording else None
         else:
-            data.graphvar2 = response1
+            graphvar2.value = int(response1)
             data.arr2.append([arduinoMillies, response1]) if data.recording else None
 
             
@@ -177,6 +178,8 @@ def exitprogram(data):
     if(data.ongoing1):
         data.ongoing1 = False
         time.sleep(2)
+    if p.is_alive():
+        p.join
     exit()
     print("exiting the program")
 
@@ -204,7 +207,7 @@ def endrecording(data):
     data.ongoing1 = False
     print("recording stop")
 
-def confirm(data):
+def confirm(data, graphvar1, graphvar2):
     if(data.mode == 0 and data.serialname1 == 0 and data.serialname2 == 0 and data.HowmuchData == 0):#exit program if missing or incorrect params TO DO
         text1 = "inputs not set"
         output_label.config(text=f"{text1}")
@@ -213,8 +216,8 @@ def confirm(data):
     
     print("Starting")
     # Configure threading
-    t1 = threading.Thread(target = serial_read, args=[data.serialname1, data, 0])
-    t2 = threading.Thread(target = serial_read, args=[data.serialname2, data, 1])
+    t1 = Process(target = serial_read, args=[data.serialname1, data, 0, graphvar1, graphvar2])
+    t2 = Process(target = serial_read, args=[data.serialname2, data, 1, graphvar1, graphvar2])
 
     if data.mode == 1:
         t1.start()
@@ -241,9 +244,11 @@ def confirm(data):
     print("Script done")
     exit() #for some reason only exits threads
 
-def button_click(data):
-    thread = threading.Thread(target=confirm, args=[data])
-    thread.start()
+def button_click(data, graphvar1, graphvar2):
+    #thread = threading.Thread(target=confirm, args=[data])
+    #thread.start()
+    p = Process(target=confirm, args=[data, graphvar1, graphvar2])
+    p.start()
 
 #not used anymore, can be deleted - mod3 was too cpu heavy - serialcom overflow
 def animate(i, data):
