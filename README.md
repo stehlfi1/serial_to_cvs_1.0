@@ -4,7 +4,7 @@ A simple script that streams EKG and EMG data from an Arduino to a CSV file, wit
 
 ## Repository Contents
 
-- **Arduino sketches** for EKG and EMG (PlatformIO; plain C++ also works)
+- **Arduino source code for EKG and EMG** (PlatformIO; compiles as standard C++ too)
 - **Standalone backend script** (no graphs)
 - **Simple GUI** — currently the main entry point
 - **Pre-built executable** in `dist/` (built with PyInstaller)
