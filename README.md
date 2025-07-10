@@ -26,6 +26,8 @@ A simple script that streams EKG and EMG data from an Arduino to a CSV file, wit
 6. **Start Recording** / **End Recording** are self-explanatory.
 7. **Exit** closes the application.
 
+Recommendation: restart the application and arduinos after each session. 
+
 ## Notes
 
 Two branches provide different internal designs:
